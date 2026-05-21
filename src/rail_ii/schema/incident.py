@@ -1,13 +1,12 @@
 from __future__ import annotations
 
 from datetime import datetime
-from enum import Enum
-from typing import Optional
+from enum import StrEnum
 
 from pydantic import BaseModel, Field, field_validator, model_validator
 
 
-class IncidentSystem(str, Enum):
+class IncidentSystem(StrEnum):
     DOORS = "doors"
     BRAKES = "brakes"
     PROPULSION = "propulsion"
@@ -18,7 +17,7 @@ class IncidentSystem(str, Enum):
     UNKNOWN = "unknown"
 
 
-class IncidentSeverity(str, Enum):
+class IncidentSeverity(StrEnum):
     LOW = "low"
     MEDIUM = "medium"
     HIGH = "high"
@@ -29,12 +28,12 @@ class IncidentSeverity(str, Enum):
 class SourceSpan(BaseModel):
     field_name: str
     text: str
-    page: Optional[int] = None
-    start_char: Optional[int] = None
-    end_char: Optional[int] = None
+    page: int | None = None
+    start_char: int | None = None
+    end_char: int | None = None
 
     @model_validator(mode="after")
-    def validate_character_offsets(self) -> "SourceSpan":
+    def validate_character_offsets(self) -> SourceSpan:
         if self.start_char is not None and self.end_char is not None:
             if self.start_char < 0:
                 raise ValueError("start_char must be non-negative")
@@ -47,17 +46,17 @@ class SourceSpan(BaseModel):
 
 class IncidentRecord(BaseModel):
     report_id: str
-    operator: Optional[str] = None
-    train_id: Optional[str] = None
-    incident_datetime: Optional[datetime] = None
-    location: Optional[str] = None
+    operator: str | None = None
+    train_id: str | None = None
+    incident_datetime: datetime | None = None
+    location: str | None = None
     system: IncidentSystem = IncidentSystem.UNKNOWN
-    component: Optional[str] = None
+    component: str | None = None
     symptom: str
     severity: IncidentSeverity = IncidentSeverity.UNKNOWN
-    service_impact: Optional[str] = None
+    service_impact: str | None = None
     confidence: float = Field(0.0, ge=0.0, le=1.0)
-    source_text: Optional[str] = None
+    source_text: str | None = None
     source_spans: list[SourceSpan] = Field(default_factory=list)
 
     @field_validator("report_id", mode="before")
