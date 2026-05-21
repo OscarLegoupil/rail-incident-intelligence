@@ -14,7 +14,7 @@ heterogeneous rail operator reports.
 
 ```bash
 # Clone the repository
-git clone https://github.com/<your-org>/rail-incident-intelligence.git
+git clone https://github.com/OscarLegoupil/rail-incident-intelligence.git
 cd rail-incident-intelligence
 
 # Install with dev dependencies
