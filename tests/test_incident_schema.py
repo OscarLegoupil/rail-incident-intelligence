@@ -90,4 +90,3 @@ def test_source_spans_uses_default_empty_list_safely_between_instances() -> None
 
     assert record_b.source_spans == []
     assert record_a.source_spans != record_b.source_spans
-
