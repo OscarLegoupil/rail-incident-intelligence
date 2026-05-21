@@ -1,0 +1,86 @@
+import pytest
+
+from pydantic import ValidationError
+
+from rail_ii.schema.incident import IncidentRecord, IncidentSeverity, IncidentSystem, SourceSpan
+
+
+def test_minimal_valid_incident_record() -> None:
+    record = IncidentRecord(report_id="RPT-001", symptom="doors not closing")
+
+    assert record.report_id == "RPT-001"
+    assert record.symptom == "doors not closing"
+    assert record.system == IncidentSystem.UNKNOWN
+    assert record.severity == IncidentSeverity.UNKNOWN
+    assert record.confidence == 0.0
+    assert record.source_spans == []
+
+
+def test_report_id_cannot_be_empty() -> None:
+    with pytest.raises(ValidationError) as exc_info:
+        IncidentRecord(report_id=" ", symptom="signal lost")
+
+    assert "report_id cannot be empty" in str(exc_info.value)
+
+
+def test_symptom_cannot_be_empty() -> None:
+    with pytest.raises(ValidationError) as exc_info:
+        IncidentRecord(report_id="RPT-002", symptom="")
+
+    assert "symptom cannot be empty" in str(exc_info.value)
+
+
+def test_confidence_cannot_be_below_zero() -> None:
+    with pytest.raises(ValidationError) as exc_info:
+        IncidentRecord(report_id="RPT-003", symptom="brake failure", confidence=-0.1)
+
+    assert "greater than or equal to 0.0" in str(exc_info.value)
+
+
+def test_confidence_cannot_be_above_one() -> None:
+    with pytest.raises(ValidationError) as exc_info:
+        IncidentRecord(report_id="RPT-004", symptom="signal fault", confidence=1.1)
+
+    assert "less than or equal to 1.0" in str(exc_info.value)
+
+
+def test_invalid_system_value_is_rejected() -> None:
+    with pytest.raises(ValidationError) as exc_info:
+        IncidentRecord(report_id="RPT-005", symptom="electrical issue", system="invalid_system")
+
+    assert "value is not a valid enumeration member" in str(exc_info.value)
+    assert "system" in str(exc_info.value)
+
+
+def test_invalid_severity_value_is_rejected() -> None:
+    with pytest.raises(ValidationError) as exc_info:
+        IncidentRecord(report_id="RPT-006", symptom="power loss", severity="invalid_severity")
+
+    assert "value is not a valid enumeration member" in str(exc_info.value)
+    assert "severity" in str(exc_info.value)
+
+
+def test_valid_source_span_offsets_are_accepted() -> None:
+    span = SourceSpan(field_name="source_text", text="door jam", start_char=2, end_char=5)
+    record = IncidentRecord(report_id="RPT-007", symptom="door jam", source_spans=[span])
+
+    assert len(record.source_spans) == 1
+    assert record.source_spans[0].start_char == 2
+    assert record.source_spans[0].end_char == 5
+
+
+def test_invalid_source_span_offsets_are_rejected() -> None:
+    with pytest.raises(ValidationError) as exc_info:
+        SourceSpan(field_name="source_text", text="brake", start_char=5, end_char=3)
+
+    assert "end_char must be greater than or equal to start_char" in str(exc_info.value)
+
+
+def test_source_spans_uses_default_empty_list_safely_between_instances() -> None:
+    record_a = IncidentRecord(report_id="RPT-008", symptom="signal intermittent")
+    record_b = IncidentRecord(report_id="RPT-009", symptom="point failure")
+
+    record_a.source_spans.append(SourceSpan(field_name="note", text="intermittent signal", start_char=0, end_char=3))
+
+    assert record_b.source_spans == []
+    assert record_a.source_spans != record_b.source_spans
