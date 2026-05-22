@@ -1,0 +1,5 @@
+Second fixture report
+
+This report includes a blank line, then another.
+
+More text after spacing.

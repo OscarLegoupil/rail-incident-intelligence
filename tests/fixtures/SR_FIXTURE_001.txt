@@ -1,0 +1,6 @@
+Test report fixture
+
+Line 2 with trailing spaces   
+
+
+Line 3 should remain.
