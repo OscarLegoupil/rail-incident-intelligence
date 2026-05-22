@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from rail_ii.ingestion import Document, TxtLoader, normalize_text
+from rail_ii.ingestion import TxtLoader, normalize_text
 
 
 def test_txt_loader_reads_fixture_and_extracts_document_id() -> None:
