@@ -16,11 +16,13 @@ Known limitations:
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass
 
 from rail_ii.ingestion.document import Document
-from rail_ii.schema.incident import IncidentRecord, IncidentSeverity, IncidentSystem
-
+from rail_ii.schema.incident import (
+    IncidentRecord,
+    IncidentSeverity,
+    IncidentSystem,
+)
 
 # Keywords for system classification
 SYSTEM_KEYWORDS = {

@@ -55,7 +55,7 @@ class TestExtractBaseline:
 
         document.raw_text = """
         INCIDENT REPORT
-        
+
         Brake failure on line 7 service. Brake pressure dropped suddenly.
         Operator reported soft pedal feel. Unit pulled out of service for shop.
         """
@@ -77,7 +77,7 @@ class TestExtractBaseline:
 
         document.raw_text = """
         MAINTENANCE LOG
-        
+
         Train TR-203 in maintenance bay 4. AC not working on the morning run.
         The compressor is running but fans aren't spinning. Been like this
         since yesterday afternoon. Probably the fan relay went bad.
