@@ -135,9 +135,7 @@ def extract_baseline(document: Document) -> IncidentRecord:
     service_impact = _extract_service_impact(text)
 
     # Calculate confidence based on extracted fields
-    confidence = _calculate_confidence(
-        train_id, location, system, component, service_impact
-    )
+    confidence = _calculate_confidence(train_id, location, system, component, service_impact)
 
     # Create the record; operator is typically not in reports
     return IncidentRecord(
@@ -219,9 +217,7 @@ def _extract_symptom(text: str, lines: list[str]) -> str:
     """
     # Remove lines that are just names or single words (likely headers)
     cleaned_lines = [
-        line.strip()
-        for line in text.split("\n")
-        if line.strip() and len(line.strip()) > 10
+        line.strip() for line in text.split("\n") if line.strip() and len(line.strip()) > 10
     ]
     cleaned_text = " ".join(cleaned_lines)
 

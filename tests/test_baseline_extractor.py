@@ -14,9 +14,7 @@ class TestExtractBaseline:
 
     def test_extract_baseline_from_sr001_door_malfunction(self) -> None:
         """Test extraction from SR001: door pneumatic actuator leak."""
-        fixture_path = (
-            Path(__file__).parent / "fixtures" / "SR_FIXTURE_001.txt"
-        )
+        fixture_path = Path(__file__).parent / "fixtures" / "SR_FIXTURE_001.txt"
         document = TxtLoader.load(fixture_path)
 
         # Create a document with door-related content
@@ -196,9 +194,7 @@ class TestExtractBaseline:
         fixture_path = Path(__file__).parent / "fixtures" / "SR_FIXTURE_001.txt"
         document = TxtLoader.load(fixture_path)
 
-        document.raw_text = (
-            "This is a critical emergency situation with a severe safety risk."
-        )
+        document.raw_text = "This is a critical emergency situation with a severe safety risk."
         document.normalized_text = document.raw_text.lower()
 
         record = extract_baseline(document)
@@ -276,9 +272,7 @@ class TestExtractBaseline:
         fixture_path = Path(__file__).parent / "fixtures" / "SR_FIXTURE_001.txt"
 
         document = TxtLoader.load(fixture_path)
-        document.raw_text = (
-            "Unit in central maintenance facility reported a problem."
-        )
+        document.raw_text = "Unit in central maintenance facility reported a problem."
         document.normalized_text = document.raw_text.lower()
 
         record = extract_baseline(document)
