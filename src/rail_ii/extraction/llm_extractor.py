@@ -86,7 +86,7 @@ def extract_with_llm(document: Document, client: LLMClient) -> LLMExtractionResu
 
     try:
         raw_response = client(SYSTEM_PROMPT, user_prompt)
-    except Exception as exc:  # noqa: BLE001 - provider errors must not crash callers
+    except Exception as exc:
         return LLMExtractionResult(
             record=None,
             error=f"llm_client_error: {exc}",
