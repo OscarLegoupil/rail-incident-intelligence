@@ -85,9 +85,7 @@ def _resolve_extractor(name: str):
         from rail_ii.schema.incident import IncidentRecord, IncidentSystem
 
         if settings.openai_api_key is None:
-            raise typer.BadParameter(
-                "RAIL_II_OPENAI_API_KEY is not set. Add it to your .env file."
-            )
+            raise typer.BadParameter("RAIL_II_OPENAI_API_KEY is not set. Add it to your .env file.")
 
         client = make_openai_client(
             api_key=settings.openai_api_key.get_secret_value(),

@@ -262,9 +262,7 @@ class TestPrompts:
         assert "REPORT" in prompt.upper()
 
     @pytest.mark.parametrize("normalized,raw", [("", "some raw text"), ("normalized", "raw")])
-    def test_user_prompt_prefers_normalized_then_raw(
-        self, normalized: str, raw: str
-    ) -> None:
+    def test_user_prompt_prefers_normalized_then_raw(self, normalized: str, raw: str) -> None:
         document = _load_doc()
         document.normalized_text = normalized
         document.raw_text = raw

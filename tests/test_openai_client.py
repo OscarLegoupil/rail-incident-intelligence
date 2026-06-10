@@ -70,18 +70,14 @@ class TestMakeOpenAIClient:
             {"role": "user", "content": "USR"},
         ]
 
-    def test_returns_empty_string_when_content_is_none(
-        self, fake_openai_module: MagicMock
-    ) -> None:
+    def test_returns_empty_string_when_content_is_none(self, fake_openai_module: MagicMock) -> None:
         sdk_instance = fake_openai_module.return_value
         sdk_instance.chat.completions.create.return_value = _fake_chat_response(None)
 
         client = make_openai_client(api_key="sk-test")
         assert client("s", "u") == ""
 
-    def test_integrates_with_extract_with_llm(
-        self, fake_openai_module: MagicMock
-    ) -> None:
+    def test_integrates_with_extract_with_llm(self, fake_openai_module: MagicMock) -> None:
         """End-to-end: stubbed OpenAI -> extract_with_llm -> IncidentRecord."""
         document = TxtLoader.load(FIXTURE_PATH)
         payload = {
@@ -99,9 +95,7 @@ class TestMakeOpenAIClient:
             "source_text": None,
         }
         sdk_instance = fake_openai_module.return_value
-        sdk_instance.chat.completions.create.return_value = _fake_chat_response(
-            json.dumps(payload)
-        )
+        sdk_instance.chat.completions.create.return_value = _fake_chat_response(json.dumps(payload))
 
         client = make_openai_client(api_key="sk-test")
         result = extract_with_llm(document, client)
@@ -111,9 +105,7 @@ class TestMakeOpenAIClient:
         assert result.record.train_id == "TR-999"
         assert result.record.symptom == "door fails to close"
 
-    def test_sdk_exception_surfaces_as_client_error(
-        self, fake_openai_module: MagicMock
-    ) -> None:
+    def test_sdk_exception_surfaces_as_client_error(self, fake_openai_module: MagicMock) -> None:
         """SDK errors must be caught by extract_with_llm, never crash callers."""
         document = TxtLoader.load(FIXTURE_PATH)
         sdk_instance = fake_openai_module.return_value
@@ -131,9 +123,7 @@ class TestMakeOpenAIClient:
 class TestConfigSecretHandling:
     """Verify the API key is wrapped in SecretStr and not leaked by repr()."""
 
-    def test_api_key_is_secretstr_and_not_in_repr(
-        self, monkeypatch: pytest.MonkeyPatch
-    ) -> None:
+    def test_api_key_is_secretstr_and_not_in_repr(self, monkeypatch: pytest.MonkeyPatch) -> None:
         monkeypatch.setenv("RAIL_II_OPENAI_API_KEY", "sk-super-secret-12345")
 
         # Re-import config fresh so it picks up the env var.
@@ -144,10 +134,7 @@ class TestConfigSecretHandling:
         importlib.reload(config_module)
 
         assert config_module.settings.openai_api_key is not None
-        assert (
-            config_module.settings.openai_api_key.get_secret_value()
-            == "sk-super-secret-12345"
-        )
+        assert config_module.settings.openai_api_key.get_secret_value() == "sk-super-secret-12345"
         assert "sk-super-secret-12345" not in repr(config_module.settings)
         assert "sk-super-secret-12345" not in str(config_module.settings)
 
