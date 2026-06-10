@@ -15,6 +15,7 @@ Usage::
 from __future__ import annotations
 
 import json
+from collections.abc import Callable
 from pathlib import Path
 
 from rail_ii.evaluation.metrics import (
@@ -28,7 +29,10 @@ from rail_ii.evaluation.metrics import (
 )
 from rail_ii.extraction.baseline import extract_baseline
 from rail_ii.ingestion import TxtLoader
+from rail_ii.ingestion.document import Document
 from rail_ii.schema.incident import IncidentRecord
+
+ExtractorFn = Callable[[Document], IncidentRecord]
 
 # Which comparison function to apply per field
 _FIELD_COMPARATORS = {
@@ -76,6 +80,7 @@ def load_label(label_path: Path) -> IncidentRecord:
 def run_evaluation(
     reports_dir: Path,
     labels_dir: Path,
+    extractor: ExtractorFn = extract_baseline,
 ) -> EvaluationMetrics:
     """
     Run end-to-end evaluation over every report that has a matching label.
@@ -86,6 +91,8 @@ def run_evaluation(
     Args:
         reports_dir: Directory containing ``.txt`` report files.
         labels_dir:  Directory containing ``.json`` label files.
+        extractor:   Callable that turns a Document into an IncidentRecord.
+                     Defaults to the baseline rule-based extractor.
 
     Returns:
         An :class:`EvaluationMetrics` instance covering all evaluated records.
@@ -98,7 +105,7 @@ def run_evaluation(
             continue
 
         document = TxtLoader.load(report_path)
-        predicted = extract_baseline(document)
+        predicted = extractor(document)
         expected = load_label(label_path)
 
         record_result = compare_records(predicted, expected)
