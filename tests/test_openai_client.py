@@ -10,7 +10,7 @@ import json
 import sys
 import types
 from pathlib import Path
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
 import pytest
 
@@ -138,18 +138,15 @@ class TestConfigSecretHandling:
         assert "sk-super-secret-12345" not in repr(config_module.settings)
         assert "sk-super-secret-12345" not in str(config_module.settings)
 
-    def test_missing_api_key_is_none(self, monkeypatch: pytest.MonkeyPatch) -> None:
+    def test_missing_api_key_is_none(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
         monkeypatch.delenv("RAIL_II_OPENAI_API_KEY", raising=False)
+        # Chdir into an empty tmp dir so pydantic-settings can't find the
+        # developer's real .env during the test.
+        monkeypatch.chdir(tmp_path)
 
         import importlib
 
         from rail_ii import config as config_module
 
-        # Stop pydantic-settings from reading the developer's local .env during the test.
-        with patch.object(
-            config_module.Settings,
-            "model_config",
-            {"env_prefix": "RAIL_II_", "env_file": None, "extra": "ignore"},
-        ):
-            importlib.reload(config_module)
-            assert config_module.settings.openai_api_key is None
+        importlib.reload(config_module)
+        assert config_module.settings.openai_api_key is None

@@ -109,5 +109,121 @@ def _resolve_extractor(name: str):
     raise typer.BadParameter(f"Unknown extractor: {name!r}. Use 'baseline' or 'llm'.")
 
 
+@app.command()
+def inspect(
+    report_id: Annotated[
+        str,
+        typer.Argument(help="Report id or filename stem, e.g. 'SR001'."),
+    ],
+    reports_dir: Annotated[
+        Path,
+        typer.Option("--reports-dir", help="Directory containing .txt report files."),
+    ] = Path("data/synthetic/reports"),
+    labels_dir: Annotated[
+        Path,
+        typer.Option("--labels-dir", help="Directory containing .json label files."),
+    ] = Path("data/synthetic/labels"),
+    extractor_name: Annotated[
+        str,
+        typer.Option("--extractor", help="'baseline' or 'llm'."),
+    ] = "llm",
+    show_prompt: Annotated[
+        bool,
+        typer.Option(
+            "--show-prompt/--no-show-prompt",
+            help="Include the full system + user prompt.",
+        ),
+    ] = False,
+) -> None:
+    """Run one report through an extractor and dump everything: prompt, raw
+    response, parsed record, expected label, per-field diff.
+
+    Use this to diagnose why the LLM extractor disagrees with the labels.
+    """
+    from rail_ii.evaluation.evaluator import load_label
+    from rail_ii.ingestion import TxtLoader
+
+    report_path = reports_dir / f"{report_id}.txt"
+    label_path = labels_dir / f"{report_id}.json"
+    if not report_path.exists():
+        raise typer.BadParameter(f"Report not found: {report_path}")
+
+    document = TxtLoader.load(report_path)
+    expected = load_label(label_path) if label_path.exists() else None
+
+    typer.echo(f"=== Report: {report_path} ===")
+    typer.echo(document.normalized_text)
+    typer.echo("")
+
+    if extractor_name == "llm":
+        _inspect_llm(document, expected, show_prompt=show_prompt)
+    else:
+        extractor = _resolve_extractor(extractor_name)
+        predicted = extractor(document)
+        _dump_records_and_diff(predicted, expected)
+
+
+def _inspect_llm(document, expected, *, show_prompt: bool) -> None:
+    from rail_ii.config import settings
+    from rail_ii.extraction.llm_extractor import extract_with_llm
+    from rail_ii.extraction.openai_client import make_openai_client
+    from rail_ii.extraction.prompts import SYSTEM_PROMPT, build_user_prompt
+
+    if settings.openai_api_key is None:
+        raise typer.BadParameter("RAIL_II_OPENAI_API_KEY is not set. Add it to your .env file.")
+
+    user_prompt = build_user_prompt(document)
+    if show_prompt:
+        typer.echo("=== System prompt ===")
+        typer.echo(SYSTEM_PROMPT)
+        typer.echo("")
+        typer.echo("=== User prompt ===")
+        typer.echo(user_prompt)
+        typer.echo("")
+
+    client = make_openai_client(
+        api_key=settings.openai_api_key.get_secret_value(),
+        model=settings.openai_model,
+    )
+    result = extract_with_llm(document, client)
+
+    typer.echo(f"=== Raw LLM response (model={settings.openai_model}) ===")
+    typer.echo(result.raw_response or "<empty>")
+    typer.echo("")
+
+    if result.error:
+        typer.echo(f"=== Extraction error ===\n{result.error}\n")
+        return
+
+    _dump_records_and_diff(result.record, expected)
+
+
+def _dump_records_and_diff(predicted, expected) -> None:
+    from rail_ii.evaluation.evaluator import compare_records
+
+    typer.echo("=== Parsed record (predicted) ===")
+    typer.echo(predicted.model_dump_json(indent=2))
+    typer.echo("")
+
+    if expected is None:
+        typer.echo("(no label file found — skipping diff)")
+        return
+
+    typer.echo("=== Expected label ===")
+    typer.echo(expected.model_dump_json(indent=2))
+    typer.echo("")
+
+    typer.echo("=== Per-field diff ===")
+    record_result = compare_records(predicted, expected)
+    for fr in record_result.field_results:
+        mark = "OK  " if fr.correct else "MISS"
+        typer.echo(f"[{mark}] {fr.field_name}")
+        if not fr.correct:
+            typer.echo(f"       predicted: {fr.predicted!r}")
+            typer.echo(f"       expected:  {fr.expected!r}")
+    typer.echo("")
+    typer.echo(f"Accuracy: {record_result.correct_count}/{record_result.total_count}")
+
+
 if __name__ == "__main__":
     app()
