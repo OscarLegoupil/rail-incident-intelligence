@@ -1,0 +1,30 @@
+{
+  "report_id": "SR003",
+  "operator": null,
+  "train_id": "TR-203",
+  "incident_datetime": "2024-05-10T06:00:00",
+  "location": "depot maintenance bay 4",
+  "system": "hvac",
+  "component": "fan_motor_relay",
+  "symptom": "compressor running but fans not spinning, no air circulation",
+  "severity": "medium",
+  "service_impact": "no air conditioning during service",
+  "confidence": 1.0,
+  "source_text": "The compressor is running but fans aren't spinning. Been like this since yesterday afternoon. Probably the fan relay went bad.",
+  "source_spans": [
+    {
+      "field_name": "symptom",
+      "text": "compressor running but fans aren't spinning",
+      "page": null,
+      "start_char": 4,
+      "end_char": 47
+    },
+    {
+      "field_name": "component",
+      "text": "fan relay",
+      "page": null,
+      "start_char": 96,
+      "end_char": 105
+    }
+  ]
+}

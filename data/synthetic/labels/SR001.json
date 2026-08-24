@@ -1,0 +1,30 @@
+{
+  "report_id": "SR001",
+  "operator": null,
+  "train_id": "TR-452",
+  "incident_datetime": "2024-03-24T09:00:00",
+  "location": "Central Maintenance Facility",
+  "system": "doors",
+  "component": "pneumatic_actuator_car3_door_b",
+  "symptom": "pneumatic door actuator leaking compressed air, intermittent door closure",
+  "severity": "high",
+  "service_impact": "doors may not close completely between stations creating safety risk",
+  "confidence": 1.0,
+  "source_text": "the pneumatic actuator on car 3, door set B, was found to be leaking compressed air. The door closes intermittently and does not maintain seal pressure.",
+  "source_spans": [
+    {
+      "field_name": "component",
+      "text": "pneumatic actuator on car 3, door set B",
+      "page": null,
+      "start_char": 60,
+      "end_char": 102
+    },
+    {
+      "field_name": "symptom",
+      "text": "leaking compressed air, intermittent closure",
+      "page": null,
+      "start_char": 122,
+      "end_char": 195
+    }
+  ]
+}

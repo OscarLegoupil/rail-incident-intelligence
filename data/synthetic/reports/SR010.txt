@@ -1,0 +1,7 @@
+MAINTENANCE INCIDENT LOG
+
+Unit ID: TR-589
+Shift: 06:00-14:00
+Date: 15 June 2024
+
+At 09:15 this morning during the platform entry at Hub Central, operators reported a loud grinding noise from the right rail side. Investigation by the shop team found metal-on-metal contact in the truck assembly. The primary yaw damper has completely failed - the rod is bent and no longer maintaining lateral alignment. The truck is sitting down hard on the suspension stops. This needs immediate bearing and damper replacement. Currently in bay 5. Parts being expedited from supplier. Safety critical - vehicle cannot enter service until resolved.

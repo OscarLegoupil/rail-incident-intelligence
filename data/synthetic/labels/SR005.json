@@ -1,0 +1,30 @@
+{
+  "report_id": "SR005",
+  "operator": null,
+  "train_id": null,
+  "incident_datetime": null,
+  "location": null,
+  "system": "doors",
+  "component": "door_platform_side_car_2",
+  "symptom": "door stuck in closed position, unable to open",
+  "severity": "critical",
+  "service_impact": "passengers unable to board",
+  "confidence": 1.0,
+  "source_text": "Door won't open on car 2 platform side. Stuck closed.",
+  "source_spans": [
+    {
+      "field_name": "component",
+      "text": "car 2 platform side",
+      "page": null,
+      "start_char": 18,
+      "end_char": 36
+    },
+    {
+      "field_name": "symptom",
+      "text": "won't open, stuck closed",
+      "page": null,
+      "start_char": 9,
+      "end_char": 52
+    }
+  ]
+}

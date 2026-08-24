@@ -1,0 +1,30 @@
+{
+  "report_id": "SR006",
+  "operator": null,
+  "train_id": "TR-671",
+  "incident_datetime": "2024-05-12T08:00:00",
+  "location": "shop",
+  "system": "hvac",
+  "component": "temperature_control_valve",
+  "symptom": "cabin temperature control valve stuck in partial open position causing excessive compressor cycling",
+  "severity": "medium",
+  "service_impact": "unable to maintain cabin temperature setpoint",
+  "confidence": 1.0,
+  "source_text": "Cabin temperature control valve stuck in partial open position. Compressor cycles on/off excessively. No pressure regulation.",
+  "source_spans": [
+    {
+      "field_name": "component",
+      "text": "temperature control valve",
+      "page": null,
+      "start_char": 6,
+      "end_char": 31
+    },
+    {
+      "field_name": "symptom",
+      "text": "stuck in partial open position",
+      "page": null,
+      "start_char": 32,
+      "end_char": 62
+    }
+  ]
+}

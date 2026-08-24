@@ -1,0 +1,30 @@
+{
+  "report_id": "SR004",
+  "operator": "R. Patel",
+  "train_id": "TR-918",
+  "incident_datetime": "2024-04-18T14:35:00",
+  "location": "Depot East Shop 3",
+  "system": "propulsion",
+  "component": "primary_traction_motor_bearing_assembly_1",
+  "symptom": "high-frequency vibration in primary traction motor during dynamic brake testing at 320 Hz exceeding acceptable thresholds",
+  "severity": "high",
+  "service_impact": "motor requires removal and NDT analysis before return to service",
+  "confidence": 1.0,
+  "source_text": "High-frequency vibration detected in primary traction motor during dynamic brake testing. Oscilloscope readings show 320 Hz component exceeding acceptable thresholds by 40%. Suspect bearing cage degradation.",
+  "source_spans": [
+    {
+      "field_name": "symptom",
+      "text": "High-frequency vibration in primary traction motor at 320 Hz exceeding thresholds by 40%",
+      "page": null,
+      "start_char": 0,
+      "end_char": 91
+    },
+    {
+      "field_name": "component",
+      "text": "bearing cage",
+      "page": null,
+      "start_char": 165,
+      "end_char": 177
+    }
+  ]
+}

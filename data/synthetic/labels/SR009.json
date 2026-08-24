@@ -1,0 +1,30 @@
+{
+  "report_id": "SR009",
+  "operator": null,
+  "train_id": null,
+  "incident_datetime": null,
+  "location": null,
+  "system": "doors",
+  "component": "door_seals_weather_stripping",
+  "symptom": "door seal degradation with water ingress observed during rain service, weather stripping showing cracks and hardening",
+  "severity": "medium",
+  "service_impact": "water leakage into passenger cabin",
+  "confidence": 1.0,
+  "source_text": "Door seal degradation on center car. Water ingress during rain service. Door seals on sliding plugs showing cracks and hardening.",
+  "source_spans": [
+    {
+      "field_name": "symptom",
+      "text": "seal degradation with water ingress",
+      "page": null,
+      "start_char": 5,
+      "end_char": 71
+    },
+    {
+      "field_name": "component",
+      "text": "weather-stripping showing cracks and hardening",
+      "page": null,
+      "start_char": 85,
+      "end_char": 131
+    }
+  ]
+}

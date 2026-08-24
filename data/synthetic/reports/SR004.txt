@@ -1,0 +1,12 @@
+INCIDENT REPORT
+Location: Depot East - Shop 3
+Date/Time: 18 April 2024, 14:35
+
+Classification: Propulsion System
+Unit: TR-918
+
+Technical Summary:
+High-frequency vibration detected in primary traction motor during dynamic brake testing. Oscilloscope readings show 320 Hz component exceeding acceptable thresholds by 40%. Secondary motor nominal. Root cause assessment pending bearing inspection. Suspect bearing cage degradation in motor assembly #1. Recommend removal and NDT analysis.
+
+Technician: R. Patel
+Supervisor Approval: M. Johnson (14:50)

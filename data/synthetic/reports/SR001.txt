@@ -1,0 +1,13 @@
+MAINTENANCE REPORT - 24 March 2024
+
+Train ID: TR-452
+Depot: Central Maintenance Facility
+Inspector: J. Martinez
+
+Door System Malfunction
+
+During routine inspection of unit TR-452, the pneumatic actuator on car 3, door set B, was found to be leaking compressed air. The door closes intermittently and does not maintain seal pressure. Estimated air loss rate approximately 8-10 PSI per hour. This poses a safety risk during revenue service as doors may not close completely between stations. Recommend immediate replacement of pneumatic cylinder assembly before returning to service. Replacement parts are in stock.
+
+Inspection Date: 24 March 2024
+Time Spent: 1.5 hours
+Affected System: Door Mechanisms

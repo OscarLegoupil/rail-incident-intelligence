@@ -1,0 +1,30 @@
+{
+  "report_id": "SR010",
+  "operator": null,
+  "train_id": "TR-589",
+  "incident_datetime": "2024-06-15T09:15:00",
+  "location": "Hub Central maintenance bay 5",
+  "system": "propulsion",
+  "component": "primary_yaw_damper_truck_assembly",
+  "symptom": "loud grinding noise from right rail side during platform entry, primary yaw damper completely failed with bent rod and loss of lateral alignment",
+  "severity": "critical",
+  "service_impact": "vehicle unable to enter service, safety critical, currently in maintenance bay",
+  "confidence": 1.0,
+  "source_text": "loud grinding noise from the right rail side. The primary yaw damper has completely failed - the rod is bent and no longer maintaining lateral alignment. The truck is sitting down hard on the suspension stops.",
+  "source_spans": [
+    {
+      "field_name": "symptom",
+      "text": "loud grinding noise from right rail side",
+      "page": null,
+      "start_char": 0,
+      "end_char": 40
+    },
+    {
+      "field_name": "component",
+      "text": "primary yaw damper completely failed with bent rod",
+      "page": null,
+      "start_char": 54,
+      "end_char": 104
+    }
+  ]
+}

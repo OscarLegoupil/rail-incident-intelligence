@@ -1,0 +1,10 @@
+FIELD INSPECTION REPORT
+Date: 03 June 2024
+Location: Signal House - Northern Terminal
+Reported By: Control Center Dispatch
+Train: TR-125
+
+Issue: Brake command delays on platform entry. ABS sensor producing intermittent signal dropout. Measured delay 200-350ms exceeding spec of <100ms. Signal integrity degraded - intermittent loss of sensor pulse during dynamic braking. Recommend sensor alignment check and wiring harness inspection for chafing/corrosion. Unit restricted to local shuttle service pending resolution.
+
+Field Tech: S. Kumar
+Reviewed: D. Martinez, Maintenance Supervisor

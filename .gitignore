@@ -24,9 +24,6 @@ env/
 .DS_Store
 Thumbs.db
 
-# Data (may be large)
-data/
-
 # Coverage / test
 .coverage
 htmlcov/

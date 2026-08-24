@@ -1,0 +1,16 @@
+SHOP MAINTENANCE LOG
+
+Date: 12 May 2024
+Operator Vehicle: TR-671
+Work Order: WO-2024-5847
+
+---
+
+HVAC Deficiency: Cabin temperature control valve stuck in partial open position. Compressor cycles on/off excessively. No pressure regulation. Climate control unable to maintain setpoint. Checked thermostat circuits - all connections clean and nominal. Valve requires cleaning and possible replacement. Scheduled for strip-down inspection.
+
+Estimated completion: 13 May 2024
+Parts needed: Solenoid valve assembly (PN: SV-447-B)
+
+---
+
+Additional notes: Unit has history of HVAC issues - fourth incident in 18 months.

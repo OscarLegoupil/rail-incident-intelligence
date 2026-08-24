@@ -1,0 +1,30 @@
+{
+  "report_id": "SR002",
+  "operator": null,
+  "train_id": null,
+  "incident_datetime": null,
+  "location": null,
+  "system": "brakes",
+  "component": null,
+  "symptom": "brake pressure dropped suddenly, soft pedal feel reported by operator",
+  "severity": "high",
+  "service_impact": "vehicle pulled out of service",
+  "confidence": 1.0,
+  "source_text": "Brake pressure dropped suddenly. Operator reported soft pedal feel.",
+  "source_spans": [
+    {
+      "field_name": "symptom",
+      "text": "Brake pressure dropped suddenly",
+      "page": null,
+      "start_char": 0,
+      "end_char": 31
+    },
+    {
+      "field_name": "symptom",
+      "text": "soft pedal feel",
+      "page": null,
+      "start_char": 54,
+      "end_char": 68
+    }
+  ]
+}

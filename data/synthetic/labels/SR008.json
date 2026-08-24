@@ -1,0 +1,30 @@
+{
+  "report_id": "SR008",
+  "operator": "S. Kumar",
+  "train_id": "TR-125",
+  "incident_datetime": "2024-06-03T14:00:00",
+  "location": "Northern Terminal Signal House",
+  "system": "brakes",
+  "component": "abs_sensor",
+  "symptom": "ABS sensor producing intermittent signal dropout during platform entry with 200-350ms delay exceeding specification",
+  "severity": "high",
+  "service_impact": "brake command delays during service entry, restricted to local shuttle service",
+  "confidence": 1.0,
+  "source_text": "Brake command delays on platform entry. ABS sensor producing intermittent signal dropout. Measured delay 200-350ms exceeding spec of <100ms. Signal integrity degraded.",
+  "source_spans": [
+    {
+      "field_name": "symptom",
+      "text": "intermittent signal dropout",
+      "page": null,
+      "start_char": 55,
+      "end_char": 82
+    },
+    {
+      "field_name": "symptom",
+      "text": "Measured delay 200-350ms exceeding spec",
+      "page": null,
+      "start_char": 85,
+      "end_char": 124
+    }
+  ]
+}

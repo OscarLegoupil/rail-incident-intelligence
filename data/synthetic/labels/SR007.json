@@ -1,0 +1,30 @@
+{
+  "report_id": "SR007",
+  "operator": null,
+  "train_id": "TR-441",
+  "incident_datetime": null,
+  "location": null,
+  "system": "passenger_information",
+  "component": "next_stop_announcement_speaker_car_1",
+  "symptom": "speaker on car 1 silent during service with crackling from amplifier, no audio output from car 1 cabinet",
+  "severity": "low",
+  "service_impact": "passengers not receiving next-stop announcements in car 1",
+  "confidence": 1.0,
+  "source_text": "The speaker on car 1 was silent but we heard crackling from the amplifier. The display showed the correct station name but no audio was being output. When we tested from the operator cabin, the audio came through fine in car 3 and 4.",
+  "source_spans": [
+    {
+      "field_name": "component",
+      "text": "speaker on car 1",
+      "page": null,
+      "start_char": 4,
+      "end_char": 20
+    },
+    {
+      "field_name": "symptom",
+      "text": "silent with no audio output",
+      "page": null,
+      "start_char": 21,
+      "end_char": 145
+    }
+  ]
+}
